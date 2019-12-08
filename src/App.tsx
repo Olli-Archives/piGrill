@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import MainPage from './components/mainPage/MainPage'
+import MainPage from './components/main-page/MainPage'
 
 import './App.css';
 

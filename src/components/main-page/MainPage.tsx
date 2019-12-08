@@ -1,17 +1,20 @@
 import React from 'react';
+import { NumberInputField } from '../../helper-components/form-components/NumberInput'
+
 
 export default class MainPage extends React.Component {
 
   state: state = {
-    targetGrillTemp: 0,
-    targetProbeOneTemp: 0,
-    targetProbeTwoTemp: 0,
+    targetGrillTemp: 200,
+    targetProbeOneTemp: 120,
+    targetProbeTwoTemp: 120,
     grillOn: false,
     probeOneOn: false,
     probeTwoOn: false
   }
 
   updateState = (e: any) => {
+    console.log('e', e)
     this.setState({ [e.target.name]: e.target.value })
     console.log(this.state)
   }
@@ -39,29 +42,37 @@ export default class MainPage extends React.Component {
 
         <div>
           <p>Target Grill Temp:</p>
-          <input
+
+          <NumberInputField
+            max={400}
+            min={200}
+            onChange={this.updateState}
             name="targetGrillTemp"
             value={this.state.targetGrillTemp}
-            onChange={this.updateState}
-            placeholder="Temp" />
+          />
+
         </div>
 
         <div className={`display_${this.state.probeOneOn.toString()}`}>
           <p>Target Probe Temp:</p>
-          <input
-            value={this.state.targetProbeOneTemp}
+          <NumberInputField
+            max={500}
+            min={120}
             onChange={this.updateState}
             name="targetProbeOneTemp"
-            placeholder="Temp" />
+            value={this.state.targetProbeOneTemp}
+          />
         </div>
 
         <div className={`display_${this.state.probeTwoOn.toString()}`}>
           <p>Target Probe Temp:</p>
-          <input
-            value={this.state.targetProbeTwoTemp}
+          <NumberInputField
+            max={500}
+            min={120}
             onChange={this.updateState}
             name="targetProbeTwoTemp"
-            placeholder="Temp" />
+            value={this.state.targetProbeTwoTemp}
+          />
         </div>
 
         <div>

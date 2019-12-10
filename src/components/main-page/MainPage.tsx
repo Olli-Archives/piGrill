@@ -1,18 +1,21 @@
 import React, { useState, useContext } from 'react';
 import GrillSettingsForm, { GrillSettings } from '../forms/grill-settings-form/GrillParameters'
-import { SettingsContext } from '../../contexts/settingsContext';
+import SettingsContextProvider, { SettingsContext } from '../../contexts/settingsContext';
+
 
 export default function MainPage() {
-  const [grillStatus, setGrillStatus] = useState(false);
-  const [smokeMode, setSmokeMode] = useState(false);
+  // const [grillStatus, setGrillStatus] = useState(false);
+  // const [smokeMode, setSmokeMode] = useState(false);
+
 
 
   const submitChanges = (changes: GrillSettings) => {
     console.log('changes', changes)
   }
 
-  const grillDetails = useContext(SettingsContext)
-  console.log('grillDetails', grillDetails)
+  const grillControls = useContext(SettingsContext)
+  // console.log('grillControls', grillControls)
+  console.log(grillControls.grillParams)
 
   return (
     <main>
@@ -24,16 +27,15 @@ export default function MainPage() {
           <li>Probe 2 Temp: probe 2 setpoint</li>
         </ul>
       </div>
-      <button onClick={() => setGrillStatus(!grillStatus)}>
-        {grillStatus === true ? 'Grill Off' : 'Grill On'}
+      <button onClick={() => grillControls.setGrillParams({ ...grillControls.grillParams, grillOn: !grillControls.grillParams.grillOn })}>
+        {grillControls.grillParams.grillOn === true ? 'Grill Off' : 'Grill On'}
       </button>
-      <button onClick={() => setSmokeMode(!smokeMode)}>
+      {/* <button onClick={() => setSmokeMode(!smokeMode)}>
         {smokeMode === true ? 'Smoke Mode' : 'Grill Mode'}
-      </button>
+      </button> */}
 
       <GrillSettingsForm callback={submitChanges} />
     </main>
   )
 
 }
-

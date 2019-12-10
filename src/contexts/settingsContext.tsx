@@ -13,6 +13,7 @@ const defaults: GrillSettings = {
   grillOn: false,
   probeOneOn: false,
   probeTwoOn: false,
+  smokeOn: false,
 }
 
 

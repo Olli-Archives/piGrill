@@ -1,57 +1,53 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { NumberInputField } from '../../../helper-components/form-components/NumberInput'
+import { SettingsContext } from '../../../contexts/settingsContext';
 
 export default function GrillSettingsForm(props: Props) {
-  const [grillTemp, setGrillTemp] = useState(200);
-  const [probeOneTemp, setProbeOneTemp] = useState(120);
-  const [probeTwoTemp, setProbeTwoTemp] = useState(120);
-  const [probeOneStatus, setProbeOneStatus] = useState(false);
-  const [probeTwoStatus, setProbeTwoStatus] = useState(false);
-
-  const { callback } = props
+  const grillControls = useContext(SettingsContext)
+  const { grillParams, setGrillParams } = grillControls
 
   return (
     <>
       <div>
         <button
           name="probeOneOn"
-          onClick={() => setProbeOneStatus(!probeOneStatus)}
+          onClick={() => setGrillParams({ ...grillParams, probeOneOn: grillParams.probeOneOn })}
         >Enable Probe 1</button>
         <button
           name="probeTwoOn"
-          onClick={() => setProbeTwoStatus(!probeTwoStatus)}
+          onClick={() => setGrillParams({ ...grillParams, probeOneOn: grillParams.probeOneOn })}
         >Enable Probe 2</button>
 
         <h2>Target Grill Temperature:</h2>
         <NumberInputField
           max={400}
           min={200}
-          onChange={setGrillTemp}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setGrillParams({ ...grillParams, targetGrillTemp: e.target.value }) }}
           name="targetGrillTemp"
-          value={grillTemp}
+          value={grillParams.targetGrillTemp}
         />
 
       </div>
 
-      <div className={`display_${probeOneStatus.toString()}`}>
+      <div className={`display_${grillParams.probeOneOn.toString()}`}>
         <h2>Target Probe Temp:</h2>
         <NumberInputField
           max={500}
           min={120}
-          onChange={setProbeOneTemp}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setGrillParams({ ...grillParams, probeOneTargetTemp: e.target.value }) }}
           name="targetProbeOneTemp"
-          value={probeOneTemp}
+          value={grillParams.targetProbeOneTemp}
         />
       </div>
 
-      <div className={`display_${probeTwoStatus.toString()}`}>
+      <div className={`display_${grillParams.probeTwoOn.toString()}`}>
         <h2>Target Probe Temp:</h2>
         <NumberInputField
           max={500}
           min={120}
-          onChange={setProbeTwoTemp}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setGrillParams({ ...grillParams, probeTwoTargetTemp: e.target.value }) }}
           name="targetProbeTwoTemp"
-          value={probeTwoTemp}
+          value={grillParams.targetProbeTwoTemp}
         />
       </div>
       <div>
@@ -60,7 +56,7 @@ export default function GrillSettingsForm(props: Props) {
 
 
       {/* SWITCH TO CONTEXT AND SEND TO APP*/}
-      <button onClick={() => callback(
+      {/* <button onClick={() => callback(
         {
           grillTemp,
           probeOneTemp,
@@ -68,7 +64,7 @@ export default function GrillSettingsForm(props: Props) {
           probeOneStatus,
           probeTwoStatus
         }
-      )}>SUBMIT UPDATES</button>
+      )}>SUBMIT UPDATES</button> */}
     </>
 
   );
@@ -85,4 +81,5 @@ export interface GrillSettings {
   grillOn: boolean,
   probeOneOn: boolean,
   probeTwoOn: boolean,
+  smokeOn: boolean,
 }

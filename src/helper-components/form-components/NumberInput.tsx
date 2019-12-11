@@ -18,7 +18,7 @@ export const NumberInputField = (props: Props) => {
         name={name}
         value={value}
         type="number"
-        onChange={e => onChange(e.target.value)}
+        onChange={e => onChange(e)}
       />
       {value > max || value < min ? `input is out of range (${min} - ${max})` : null}
     </>

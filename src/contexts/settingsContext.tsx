@@ -1,10 +1,8 @@
 import React, { createContext, useState } from 'react'
 import GrillSettingsForm, { GrillSettings } from '../components/forms/grill-settings-form/GrillParameters'
+import { types } from '@babel/core'
 
-export const SettingsContext = createContext({} as {
-  grillParams: GrillSettings,
-  setGrillParams: Function
-})
+export const SettingsContext = createContext({} as Context)
 
 const defaults: GrillSettings = {
   targetGrillTemp: 120,
@@ -20,28 +18,28 @@ const defaults: GrillSettings = {
 export function SettingsContextProvider(props: any) {
   const [grillParams, setGrillParams] = useState(defaults)
 
+  const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('name', e.target, 'value', e.target)
+    setGrillParams({ ...grillParams, [e.target.name]: e.target.value })
+  }
+
+  const toggleBoolean = (e: React.ChangeEvent<HTMLInputElement>) => {
+
+    setGrillParams({ ...grillParams, [e.target.name]: !grillParams[e.target.name as keyof GrillSettings] })
+  }
+
   return (
-    <SettingsContext.Provider value={{ grillParams, setGrillParams }}>
+    <SettingsContext.Provider value={{ grillParams, setGrillParams, updateValue, toggleBoolean }}>
       {props.children}
     </SettingsContext.Provider>
   )
 }
 
-// <{props}, {state}>
-
-
-
-
-// class SettingsContextProvider extends Component<{}, GrillSettings>{
-
-
-//   render() {
-//     return (
-//       <SettingsContext.Provider value={{ ...this.state }}>
-//         {this.props.children}
-//       </SettingsContext.Provider>
-//     )
-//   }
-// }
-
 export default SettingsContextProvider
+
+interface Context {
+  grillParams: GrillSettings,
+  setGrillParams: Function,
+  updateValue: Function,
+  toggleBoolean: Function,
+}

@@ -4,8 +4,8 @@ import { SettingsContext } from '../../contexts/settingsContext';
 
 
 export default function MainPage() {
-  const submitChanges = (changes: GrillSettings) => {
-    console.log('changes', changes)
+  const submitChanges = () => {
+    console.log('changes')
   }
 
   const grillControls = useContext(SettingsContext)
@@ -28,7 +28,8 @@ export default function MainPage() {
       <button onClick={() => setGrillParams({ ...grillParams, smokeOn: !grillParams.smokeOn })}>
         {grillParams.smokeOn === true ? 'Smoke Mode' : 'Grill Mode'}
       </button>
-      <GrillSettingsForm callback={submitChanges} />
+      <GrillSettingsForm />
+      <button onClick={submitChanges}>Submit</button>
     </main>
   )
 

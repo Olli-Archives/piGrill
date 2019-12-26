@@ -8,6 +8,4 @@ export interface GrillSettings {
   probeOneOn: boolean,
   probeTwoOn: boolean,
   smokeOn: boolean,
-  displayProbeModal: boolean,
-  displayGrillTempModal: boolean,
 }

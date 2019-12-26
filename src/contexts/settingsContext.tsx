@@ -15,8 +15,6 @@ const defaults: GrillSettings = {
   probeOneOn: false,
   probeTwoOn: false,
   smokeOn: false,
-  displayProbeModal: false,
-  displayGrillTempModal: false,
 }
 
 

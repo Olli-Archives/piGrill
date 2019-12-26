@@ -1,10 +1,7 @@
 import React, { createContext, useState } from 'react'
-import GrillSettingsForm from '../components/forms/grill-settings-form/GrillParameters'
-import { types } from '@babel/core'
 import { GrillSettings } from '../types/types';
 
 export const SettingsContext = createContext({} as Context)
-
 const defaults: GrillSettings = {
   targetGrillTemp: 120,
   targetProbeOneTemp: 100,
@@ -16,7 +13,6 @@ const defaults: GrillSettings = {
   probeTwoOn: false,
   smokeOn: false,
 }
-
 
 export function SettingsContextProvider(props: any) {
   const [grillParams, setGrillParams] = useState(defaults)

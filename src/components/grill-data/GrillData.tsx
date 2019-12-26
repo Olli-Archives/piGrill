@@ -5,10 +5,8 @@ export default function GrillData() {
 
   const grillControls = useContext(SettingsContext)
   const { grillParams, setGrillParams } = grillControls
-
   const grillStatus = grillParams.grillOn ? 'Grill On' : 'Grill Off';
   const grillMode = grillParams.smokeOn ? 'Smoke' : 'Grill'
-
 
   return (
     <>

@@ -7,11 +7,14 @@ export const SettingsContext = createContext({} as Context)
 const defaults: GrillSettings = {
   targetGrillTemp: 120,
   targetProbeOneTemp: 100,
+  probeOneName: 'Probe One',
   targetProbeTwoTemp: 100,
+  probeTwoName: 'Probe Two',
   grillOn: false,
   probeOneOn: false,
   probeTwoOn: false,
   smokeOn: false,
+  displayProbeModal: false,
 }
 
 

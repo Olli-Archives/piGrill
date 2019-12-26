@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import GrillSettingsForm, { GrillSettings } from '../forms/grill-settings-form/GrillParameters'
 import { SettingsContext } from '../../contexts/settingsContext';
+import GrillData from '../grill-data/GrillData';
 
 
 export default function MainPage() {
@@ -16,13 +17,9 @@ export default function MainPage() {
     <main>
       <div>
         <h1>Welcome to Pi Grill!</h1>
-        <ul>
-          <li>Grill Temp Grill Setpoint</li>
-          <li>Probe 1 Temp: probe 1 setpoint</li>
-          <li>Probe 2 Temp: probe 2 setpoint</li>
-        </ul>
+        <GrillData />
       </div>
-      <button onClick={() => setGrillParams({ ...grillParams, grillOn: !grillParams.grillOn })}>
+      < button onClick={() => setGrillParams({ ...grillParams, grillOn: !grillParams.grillOn })}>
         {grillControls.grillParams.grillOn === true ? 'Grill Off' : 'Grill On'}
       </button>
       <button onClick={() => setGrillParams({ ...grillParams, smokeOn: !grillParams.smokeOn })}>

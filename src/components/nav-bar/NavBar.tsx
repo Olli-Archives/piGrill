@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { SettingsContext } from '../../contexts/settingsContext';
+import { Link } from 'react-router-dom';
 
 export default function NavBar() {
 
@@ -9,23 +10,9 @@ export default function NavBar() {
 
   return (
     <>
-      <button
-        name="displayProbeModal"
-        onClick={e => toggleBoolean(e)}
-      > SET MEAT PROBES</button>
-      < button onClick={() => setGrillParams({ ...grillParams, grillOn: !grillParams.grillOn })}>
-        {grillControls.grillParams.grillOn === true ? 'Grill Off' : 'Grill On'}
-      </button>
-      <button onClick={() => setGrillParams({ ...grillParams, smokeOn: !grillParams.smokeOn })}>
-        {grillParams.smokeOn === true ? 'Smoke Mode' : 'Grill Mode'}
-      </button>
-      <button
-        name="displayGrillTempModal"
-        onClick={e => toggleBoolean(e)}
-      >
-        SET GRILL TEMP
-      </button>
-
+      <Link to="/">HOME</Link>
+      <Link to="/probes">PROBES</Link>
+      <Link to="/grill">GRILL</Link>
     </>
   )
 }

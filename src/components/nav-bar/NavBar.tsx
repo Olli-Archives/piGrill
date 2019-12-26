@@ -19,6 +19,12 @@ export default function NavBar() {
       <button onClick={() => setGrillParams({ ...grillParams, smokeOn: !grillParams.smokeOn })}>
         {grillParams.smokeOn === true ? 'Smoke Mode' : 'Grill Mode'}
       </button>
+      <button
+        name="displayGrillTempModal"
+        onClick={e => toggleBoolean(e)}
+      >
+        SET GRILL TEMP
+      </button>
 
     </>
   )

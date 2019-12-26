@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
-import GrillSettingsForm, { GrillSettings } from '../forms/grill-settings-form/GrillParameters'
+import GrillSettingsForm from '../forms/grill-settings-form/GrillParameters'
 import { SettingsContext } from '../../contexts/settingsContext';
 import GrillData from '../grill-data/GrillData';
 import NavBar from '../nav-bar/NavBar'
 import ProbeModal from '../forms/probe-modal/ProbeModal';
+import GrillTempModal from '../forms/grill-temp-modal/GrillTempModal';
+
 
 export default function MainPage() {
   const submitChanges = () => {
@@ -18,8 +20,8 @@ export default function MainPage() {
       <main>
         <h1>Welcome to Pi Grill!</h1>
         {grillControls.grillParams.displayProbeModal ? <ProbeModal /> : null}
+        {grillControls.grillParams.displayGrillTempModal ? <GrillTempModal /> : null}
         <GrillData />
-        <GrillSettingsForm />
         <button onClick={submitChanges}>Submit</button>
       </main>
     </>

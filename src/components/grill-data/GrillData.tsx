@@ -13,7 +13,7 @@ export default function GrillData() {
   return (
     <ul>
       <li> {grillStatus} / {grillMode} </li>
-      <li> Grill Temperature:</li>
+      <li> Grill Temperature: / Target {grillParams.targetGrillTemp}</li>
       <div className={`display_${grillParams.probeOneOn.toString()}`}>
         <li>{grillParams.probeOneName} Target Temp: {grillParams.targetProbeOneTemp}</li>
       </div>

@@ -21,7 +21,3 @@ export default function GrillTempModal() {
     </>
   );
 }
-
-interface Props {
-  callback: Function
-}

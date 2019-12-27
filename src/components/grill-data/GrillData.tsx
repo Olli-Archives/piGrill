@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { SettingsContext } from '../../contexts/settingsContext';
+import axios, { AxiosPromise, AxiosRequestConfig, Method } from 'axios';
 
 export default function GrillData() {
 
@@ -7,6 +8,11 @@ export default function GrillData() {
   const { grillParams, setGrillParams } = grillControls
   const grillStatus = grillParams.grillOn ? 'Grill On' : 'Grill Off';
   const grillMode = grillParams.smokeOn ? 'Smoke' : 'Grill'
+
+  const api = async () => {
+    const response = await axios.post<AxiosPromise>('127.0.0.1/grill')
+    console.log(response)
+  }
 
   return (
     <>
@@ -30,6 +36,7 @@ export default function GrillData() {
       <button onClick={() => setGrillParams({ ...grillParams, smokeOn: !grillParams.smokeOn })}>
         {grillParams.smokeOn === true ? 'Smoke Mode' : 'Grill Mode'}
       </button>
+      <button onClick={() => { api() }}>SUBMIT CHANGES</button>
     </>
   )
 } 

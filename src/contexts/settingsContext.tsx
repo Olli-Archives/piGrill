@@ -12,6 +12,7 @@ const defaults: GrillSettings = {
   probeOneOn: false,
   probeTwoOn: false,
   smokeOn: false,
+  loading: false,
 }
 
 export function SettingsContextProvider(props: any) {
@@ -27,8 +28,10 @@ export function SettingsContextProvider(props: any) {
     setGrillParams({ ...grillParams, [e.target.name]: !grillParams[e.target.name as keyof GrillSettings] })
   }
 
+  const loading = () => { setGrillParams({ ...grillParams, loading: !grillParams.loading }) }
+
   return (
-    <SettingsContext.Provider value={{ grillParams, setGrillParams, updateValue, toggleBoolean }}>
+    <SettingsContext.Provider value={{ grillParams, setGrillParams, updateValue, toggleBoolean, loading, }}>
       {props.children}
     </SettingsContext.Provider>
   )
@@ -41,4 +44,5 @@ interface Context {
   setGrillParams: Function,
   updateValue: Function,
   toggleBoolean: Function,
+  loading: Function
 }

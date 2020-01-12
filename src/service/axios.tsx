@@ -9,11 +9,7 @@ export class AxiosService {
   }
 
   post(options: Options) {
-    console.log('posting')
-    axios.post(`${this.url}${options.endPoint}`, options.body)
-      .then(res => { console.log(res) })
-      .catch(e => console.log(e))
-
+    return axios.post(`${this.url}${options.endPoint}`, options.body)
   }
 }
 

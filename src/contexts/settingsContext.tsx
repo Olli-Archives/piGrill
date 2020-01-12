@@ -24,14 +24,21 @@ export function SettingsContextProvider(props: any) {
   }
 
   const toggleBoolean = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('e', e.target.name, 'from cont', grillParams[e.target.name as keyof GrillSettings])
 
     setGrillParams({ ...grillParams, [e.target.name]: !grillParams[e.target.name as keyof GrillSettings] })
   }
 
-  const loading = () => { setGrillParams({ ...grillParams, loading: !grillParams.loading }) }
+  const loading = () => {
+    console.log('setting loading state')
+    setGrillParams({ ...grillParams, loading: true })
+    console.log(grillParams.loading)
+  }
+
+  const finishedLoading = () => { setGrillParams({ ...grillParams, loading: false }) }
 
   return (
-    <SettingsContext.Provider value={{ grillParams, setGrillParams, updateValue, toggleBoolean, loading, }}>
+    <SettingsContext.Provider value={{ grillParams, setGrillParams, updateValue, toggleBoolean, loading, finishedLoading }}>
       {props.children}
     </SettingsContext.Provider>
   )
@@ -44,5 +51,6 @@ interface Context {
   setGrillParams: Function,
   updateValue: Function,
   toggleBoolean: Function,
-  loading: Function
+  loading: Function,
+  finishedLoading: Function
 }

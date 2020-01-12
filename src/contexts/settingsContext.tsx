@@ -30,7 +30,7 @@ export function SettingsContextProvider(props: any) {
   }
 
   const loading = () => {
-    console.log('setting loading state')
+    console.log('setting loading state', grillParams.loading)
     setGrillParams({ ...grillParams, loading: true })
     console.log(grillParams.loading)
   }

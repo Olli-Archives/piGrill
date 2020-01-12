@@ -6,7 +6,7 @@ export default function GrillData() {
 
   const axiosService = new AxiosService('http://192.168.1.16:3001/')
   const grillControls = useContext(SettingsContext)
-  const { grillParams, setGrillParams, toggleBoolean, loading, finishedLoading } = grillControls
+  const { grillParams, toggleBoolean } = grillControls
   const grillStatus = grillParams.grillOn ? 'Grill On' : 'Grill Off';
   const grillMode = grillParams.smokeOn ? 'Smoke' : 'Grill'
 
@@ -30,7 +30,8 @@ export default function GrillData() {
         // disabled={grillParams.loading}
         name="grillOn"
         disabled={grillParams.loading}
-        onClick={async (e) => {
+        onClick={(e) => {
+
           e.persist()
           axiosService.post({
             endPoint: 'grill-state',
@@ -47,9 +48,28 @@ export default function GrillData() {
         }}>
         {grillControls.grillParams.grillOn === true ? 'Grill Off' : 'Grill On'}
       </button>
-      <button onClick={
-        () => setGrillParams({ ...grillParams, smokeOn: !grillParams.smokeOn })
-      }>
+      <button
+        name="smokeOn"
+        disabled={grillParams.loading}
+        onClick={
+          (e) => {
+            e.persist()
+            axiosService.post({
+              endPoint: 'grill-mode',
+              body: {
+                smoke: `${grillParams.smokeOn ? 'off' : 'on'}`
+              }
+            })
+              .then(res => {
+                console.log('smoke res', res, 'e', e)
+                if (res) {
+                  toggleBoolean(e)
+
+                }
+              })
+
+          }
+        }>
         {grillParams.smokeOn === true ? 'Smoke Mode' : 'Grill Mode'}
       </button>
       <button >SUBMIT CHANGES</button>

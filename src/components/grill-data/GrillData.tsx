@@ -10,7 +10,7 @@ export default function GrillData() {
   const grillStatus = grillParams.grillOn ? 'Grill On' : 'Grill Off';
   const grillMode = grillParams.smokeOn ? 'Smoke' : 'Grill'
 
-  const test = () => {
+  const updateButtons = () => {
     axiosService.get({
       endPoint: 'status'
     })
@@ -19,7 +19,7 @@ export default function GrillData() {
       })
   }
 
-  useEffect(test, [])
+  useEffect(updateButtons, [])
 
   return (
     <>

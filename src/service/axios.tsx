@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import axios, { AxiosPromise, AxiosRequestConfig, Method } from 'axios';
+import axios, { } from 'axios';
 
 export class AxiosService {
   url: string;
@@ -11,10 +10,14 @@ export class AxiosService {
   post(options: Options) {
     return axios.post(`${this.url}${options.endPoint}`, options.body)
   }
+
+  get(options: Options) {
+    return axios.get(`${this.url}${options.endPoint}`)
+  }
 }
 
 interface Options {
-  body: {},
+  body?: {},
   endPoint: string
 }
 

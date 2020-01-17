@@ -29,6 +29,14 @@ export function SettingsContextProvider(props: any) {
     setGrillParams({ ...grillParams, [e.target.name]: !grillParams[e.target.name as keyof GrillSettings] })
   }
 
+  const updateContext = (context: StateMachineContext) => {
+    console.log('received context', context);
+    console.log('oldContext', grillParams);
+    const { mode, status } = context;
+    setGrillParams({ ...grillParams, smokeOn: mode === "smoke", grillOn: status === "on" })
+    console.log('updatedContext', grillParams);
+  }
+
   const loading = () => {
     console.log('setting loading state', grillParams.loading)
     setGrillParams({ ...grillParams, loading: true })
@@ -38,7 +46,15 @@ export function SettingsContextProvider(props: any) {
   const finishedLoading = () => { setGrillParams({ ...grillParams, loading: false }) }
 
   return (
-    <SettingsContext.Provider value={{ grillParams, setGrillParams, updateValue, toggleBoolean, loading, finishedLoading }}>
+    <SettingsContext.Provider value={{
+      grillParams,
+      setGrillParams,
+      updateValue,
+      toggleBoolean,
+      loading,
+      finishedLoading,
+      updateContext
+    }}>
       {props.children}
     </SettingsContext.Provider>
   )
@@ -52,5 +68,11 @@ interface Context {
   updateValue: Function,
   toggleBoolean: Function,
   loading: Function,
-  finishedLoading: Function
+  finishedLoading: Function,
+  updateContext: Function
+}
+
+interface StateMachineContext {
+  mode: string,
+  status: string
 }

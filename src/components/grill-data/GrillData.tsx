@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SettingsContext } from '../../contexts/settingsContext';
 import { AxiosService } from '../../service/axios';
 
@@ -6,9 +6,20 @@ export default function GrillData() {
 
   const axiosService = new AxiosService('http://192.168.1.16:3001/')
   const grillControls = useContext(SettingsContext)
-  const { grillParams, toggleBoolean } = grillControls
+  const { grillParams, toggleBoolean, updateContext } = grillControls
   const grillStatus = grillParams.grillOn ? 'Grill On' : 'Grill Off';
   const grillMode = grillParams.smokeOn ? 'Smoke' : 'Grill'
+
+  const test = () => {
+    axiosService.get({
+      endPoint: 'status'
+    })
+      .then(res => {
+        updateContext(res.data);
+      })
+  }
+
+  useEffect(test, [])
 
   return (
     <>

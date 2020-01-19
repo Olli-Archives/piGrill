@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react'
 import { GrillSettings } from '../types/types';
+import { State } from 'xstate';
 
 export const SettingsContext = createContext({} as Context)
 const defaults: GrillSettings = {
@@ -8,7 +9,7 @@ const defaults: GrillSettings = {
   probeOneName: 'Probe One',
   targetProbeTwoTemp: 100,
   probeTwoName: 'Probe Two',
-  grillOn: false,
+  grillStatus: 'idle',
   probeOneOn: false,
   probeTwoOn: false,
   smokeOn: false,
@@ -29,11 +30,8 @@ export function SettingsContextProvider(props: any) {
     setGrillParams({ ...grillParams, [e.target.name]: !grillParams[e.target.name as keyof GrillSettings] })
   }
 
-  const updateContext = (context: StateMachineContext) => {
-    console.log('received context', context);
-    console.log('oldContext', grillParams);
-    const { mode, status } = context;
-    setGrillParams({ ...grillParams, smokeOn: mode === "smoke", grillOn: status === "on" })
+  const updateContext = (state: State<Context>) => {
+    setGrillParams({ ...grillParams, smokeOn: state.value === "smoke", grillStatus: state.value.toString() })
     console.log('updatedContext', grillParams);
   }
 

@@ -4,7 +4,7 @@ export interface GrillSettings {
   probeOneName: string,
   targetProbeTwoTemp: number,
   probeTwoName: string,
-  grillOn: boolean,
+  grillStatus: string,
   probeOneOn: boolean,
   probeTwoOn: boolean,
   smokeOn: boolean,

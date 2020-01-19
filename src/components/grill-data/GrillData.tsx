@@ -7,7 +7,7 @@ export default function GrillData() {
   const axiosService = new AxiosService('http://192.168.1.16:3001/')
   const grillControls = useContext(SettingsContext)
   const { grillParams, toggleBoolean, updateContext } = grillControls
-  const grillStatus = grillParams.grillOn ? 'Grill On' : 'Grill Off';
+  const grillStatus = grillParams.grillStatus
   const grillMode = grillParams.smokeOn ? 'Smoke' : 'Grill'
 
   const updateButtons = () => {
@@ -42,26 +42,30 @@ export default function GrillData() {
         name="grillOn"
         disabled={grillParams.loading}
         onClick={(e) => {
+          console.log('grill params', grillParams.grillStatus)
+          console.log('test', grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown');
 
           e.persist()
           axiosService.post({
             endPoint: 'grill-state',
             body: {
-              state: `${grillParams.grillOn ? 'off' : 'on'}`
+              state: grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown' ? 'on' : 'off'
             }
           })
             .then(res => {
+              console.log('resposne', res)
               if (res) {
                 toggleBoolean(e)
               }
             })
+            .then(() => { updateButtons() })
 
         }}>
-        {grillControls.grillParams.grillOn === true ? 'Grill Off' : 'Grill On'}
+        {grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown' ? 'Grill On' : 'Grill Off'}
       </button>
       <button
         name="smokeOn"
-        disabled={grillParams.loading}
+        disabled={grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown'}
         onClick={
           (e) => {
             e.persist()
@@ -71,14 +75,7 @@ export default function GrillData() {
                 smoke: `${grillParams.smokeOn ? 'off' : 'on'}`
               }
             })
-              .then(res => {
-                console.log('smoke res', res, 'e', e)
-                if (res) {
-                  toggleBoolean(e)
-
-                }
-              })
-
+              .then(() => { updateButtons() })
           }
         }>
         {grillParams.smokeOn === true ? 'Smoke Mode' : 'Grill Mode'}

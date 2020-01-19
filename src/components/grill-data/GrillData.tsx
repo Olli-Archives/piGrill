@@ -41,46 +41,50 @@ export default function GrillData() {
         // disabled={grillParams.loading}
         name="grillOn"
         disabled={grillParams.loading}
-        onClick={(e) => {
-          console.log('grill params', grillParams.grillStatus)
-          console.log('test', grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown');
-
-          e.persist()
+        onClick={() => {
           axiosService.post({
-            endPoint: 'grill-state',
+            endPoint: 'send',
             body: {
-              state: grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown' ? 'on' : 'off'
+              targetState: 'START'
             }
           })
-            .then(res => {
-              console.log('resposne', res)
-              if (res) {
-                toggleBoolean(e)
-              }
-            })
-            .then(() => { updateButtons() })
-
         }}>
-        {grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown' ? 'Grill On' : 'Grill Off'}
+        Start Grill
       </button>
       <button
-        name="smokeOn"
-        disabled={grillParams.grillStatus === 'idle' || grillParams.grillStatus === 'shutdown'}
         onClick={
-          (e) => {
-            e.persist()
+          () => {
             axiosService.post({
-              endPoint: 'grill-mode',
+              endPoint: 'send',
               body: {
-                smoke: `${grillParams.smokeOn ? 'off' : 'on'}`
+                targetState: 'SELECT_MODE',
+                context: {
+                  contextField: 'targetMode',
+                  contextFieldContent: 'smoke'
+                }
               }
             })
-              .then(() => { updateButtons() })
           }
         }>
-        {grillParams.smokeOn === true ? 'Smoke Mode' : 'Grill Mode'}
+        SMOKE MODE
       </button>
-      <button >SUBMIT CHANGES</button>
+      <button
+        onClick={
+          () => {
+            axiosService.post({
+              endPoint: 'send',
+              body: {
+                targetState: 'SELECT_MODE',
+                context: {
+                  contextField: 'targetMode',
+                  contextFieldContent: 'grill'
+                }
+              }
+            })
+          }
+        }>
+        GRILL MODE
+      </button>
     </>
   )
 } 
